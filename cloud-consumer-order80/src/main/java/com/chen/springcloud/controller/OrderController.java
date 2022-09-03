@@ -5,6 +5,7 @@ import com.chen.springcloud.entities.CommonResult;
 import com.chen.springcloud.entities.Payment;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,4 +35,24 @@ public class OrderController {
     public CommonResult getPayment(@PathVariable("id") Long id) {
         return restTemplate.getForObject(PAYMENT_SRV + "/payment/get/" + id, CommonResult.class);
     }
+
+    @GetMapping("/consumer/payment/getEntity/{id}")
+    public CommonResult getPaymentEntity(@PathVariable("id") Long id) {
+        ResponseEntity<CommonResult> entity = restTemplate.getForEntity(PAYMENT_SRV + "/payment/get/" + id, CommonResult.class);
+        if(entity.getStatusCode().is2xxSuccessful()){
+            return entity.getBody();
+        }else{
+            return new CommonResult(444,"操做失败");
+        }
+    }
+    @GetMapping("/consumer/payment/create2")
+    public CommonResult create2(Payment payment){
+        ResponseEntity<CommonResult> entity = restTemplate.postForEntity(PAYMENT_SRV + "/payment/create", payment, CommonResult.class);
+        if(entity.getStatusCode().is2xxSuccessful()){
+            return entity.getBody();
+        }else{
+            return new CommonResult(444,"插入失败");
+        }
+    }
+
 }
