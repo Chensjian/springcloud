@@ -1,0 +1,23 @@
+server:
+  port: 80
+
+spring:
+  application:
+    name: cloud-consumer-feign-hystrix-order
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka
+  instance:
+    instance-id: order80
+    prefer-ip-address: true
+#ribbon:
+#  ReadTimeout: 5000
+#  ConnectTimeout: 5000
+
+feign:
+  circuitbreaker:
+    enabled: true
+
