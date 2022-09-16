@@ -1,0 +1,30 @@
+server:
+  port: 3355
+spring:
+  application:
+    name: config-client3355
+  cloud:
+    #config客户端配置
+    config:
+      label: main  #分支名称
+      name: config #配置文件名称
+      profile: dev  #读取后缀名称 上述3个综合：main分支上config-dev.yaml的配置文件被读取http://config-3344:3344/main/config-dev.yaml
+      uri: http://localhost:3344 #配置中心地址
+
+eureka:
+  instance:
+    instance-id: cloud-config-client3355
+    prefer-ip-address: true
+  client:
+    fetch-registry: false
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka
+
+#暴露监控的端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
