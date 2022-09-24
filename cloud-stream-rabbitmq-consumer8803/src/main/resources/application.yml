@@ -1,0 +1,45 @@
+server:
+  port: 8803
+
+spring:
+  application:
+    name: cloud-stream-rabbitmq-consumer
+  rabbitmq:
+    addresses: 127.0.0.1:5672
+    username: guest
+    password: guest
+  cloud:
+    function:
+      definition: myBroadcast;myGroup
+    #定义消费者，多个用分号隔开，当存在大于1个的消费者时，不定义不生效
+    stream:
+      bindings:
+        #       #广播消息
+        #        myBroadcast-in-0: #消费者绑定名称，myBroadcast是自定义的绑定名称，in代表消费者，0是固定写法
+        #          destination: my-broadcast-topic #对应真实的RabbitMQ Exchange
+        #        myBroadcast-out-0: #生产者绑定名称，myBroadcast是自定义的绑定名称，out代表生产者，0是固定写法
+        #          destination: my-broadcast-topic #对应真实的 RabbitMQ Exchange
+        #分组消息
+        myGroup-in-0: #消费者绑定名称
+          destination: my-group-topic  #对应真实的RabbitMQ Exchange
+#          group: my-group-2 #同一分组的消费服务，只能有一个消费者消费到消息
+#        myGroup-out-0: #生产者绑定名称
+#          destination: my-group-topic  #对应真实的RabbitMQ Exchange
+#      bindings: #服务的整合处理
+#        output: #这个名字是一个通道的名称
+#          destination: studyExchange #表示使用的Exchange名称定义
+#          content-type: application/json #设置消息类型，本次json，文本则设置text/plain
+#          binder: rabbit #设置要绑定的消息服务的具体设置
+
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: cloud-stream-rabbitmq-consumer8803
+    lease-renewal-interval-in-seconds: 2
+    lease-expiration-duration-in-seconds: 5

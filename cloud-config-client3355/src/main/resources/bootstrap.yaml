@@ -2,7 +2,7 @@ server:
   port: 3355
 spring:
   application:
-    name: config-client3355
+    name: cloud-config-client
   cloud:
     #config客户端配置
     config:
@@ -27,4 +27,11 @@ management:
     web:
       exposure:
         include: "*"
+
+#rabbitmq相关配置
+rabbitmq:
+  host: localhost
+  port: 15672
+  username: guest
+  password: guest
 
