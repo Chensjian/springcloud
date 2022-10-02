@@ -1,0 +1,12 @@
+server:
+  port: 2002
+
+spring:
+  application:
+    name: seata-order-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.98.27:8848
+feign:
+  hytrix: false

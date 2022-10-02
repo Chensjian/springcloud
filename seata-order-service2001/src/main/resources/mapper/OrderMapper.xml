@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chen.springcloud.dao.OrderDao">
+    
+    <resultMap id="BaseResultMap" type="com.chen.springcloud.domain.Order">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="user_id" property="userId" jdbcType="BIGINT"/>
+        <result column="product_id" property="productId" jdbcType="BIGINT"/>
+        <result column="count" property="count" jdbcType="BIGINT"/>
+        <result column="money" property="status" jdbcType="DECIMAL"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+    </resultMap>
+    
+<!--    void create(Order order);-->
+    <insert id="create" keyProperty="id" useGeneratedKeys="true">
+        insert into torder (id,user_id,product_id,count,money,status)
+        values(null,#{userId},#{productId},#{count},#{money},0)
+    </insert>
+<!--    void update(@Param("userId") Long userId,@Param("status") Integer status);-->
+    <update id="update">
+        update torder set status=1
+        where user_id=#{userId} and status=0
+    </update>
+</mapper>
